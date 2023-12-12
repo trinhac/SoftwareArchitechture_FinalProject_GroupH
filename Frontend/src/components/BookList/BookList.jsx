@@ -1,43 +1,48 @@
-import React from 'react';
-import { useGlobalContext } from '../../context.';
-import Book from "../BookList/Book";
+// import { useGlobalContext } from '../../context.';
 import Loading from "../Loader/Loader";
-import coverImg from "../../images/cover_not_found.jpg";
+// import coverImg from "../../images/cover_not_found.jpg";
+import { useGlobalContext } from '../../context.';
 import "./BookList.css";
-
-//https://covers.openlibrary.org/b/id/240727-S.jpg
+import Book from "../BookList/Book";
+import React, { useState, useEffect } from 'react';
 
 const BookList = () => {
-  const {books, loading, resultTitle} = useGlobalContext();
-  const booksWithCovers = books.map((singleBook) => {
-    return {
-      ...singleBook,
-      // removing /works/ to get only id
-      id: (singleBook.id).replace("/works/", ""),
-      cover_img: singleBook.cover_id ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg` : coverImg
-    }
-  });
+  const [books, setBooks] = useState([]);
+  const { searchTerm } = useGlobalContext();
 
-  if(loading) return <Loading />;
+  useEffect(() => {
+    // Gọi hàm get từ API ở đây và cập nhật state books
+    const fetchData = async () => {
+      try {
+        let apiUrl = 'http://localhost:8080/books';
+        if (searchTerm) {
+          apiUrl = `http://localhost:8080/books/name/${searchTerm}`;
+        }
 
+        const response = await fetch(apiUrl); // Thay đổi URL API thực tế của bạn
+        const data = await response.json();
+        setBooks(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [searchTerm]); // Thêm searchTerm vào dependency array để useEffect chạy khi searchTerm thay đổi
+  if (!books.length) {
+    return <Loading />;
+  }
   return (
     <section className='booklist'>
       <div className='container'>
-        <div className='section-title'>
-          <h2>{resultTitle}</h2>
-        </div>
         <div className='booklist-content grid'>
-          {
-            booksWithCovers.slice(0, 30).map((item, index) => {
-              return (
-                <Book key = {index} {...item} />
-              )
-            })
-          }
+          {books.slice(0, 30).map((book) => (
+            <Book key={book.id} {...book} />
+          ))}
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default BookList
+export default BookList;
