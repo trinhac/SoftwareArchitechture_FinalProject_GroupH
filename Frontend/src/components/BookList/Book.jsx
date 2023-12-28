@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./BookList.css";
-import book1 from "../../images/book1.png";
 const Book = ({ id, BookImage, BookName, Author, TotalEdition, PublishYear }) => {
-  const imagePath = `../../images/${BookImage}`;
+  const imagePath = `${BookImage}`;
+  console.log(imagePath);
   return (
     <div className='book-item flex flex-column flex-sb'>
       <div className='book-item-img'>

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 // import Loading from "../Loader/Loader";
 // import coverImg from "../../images/cover_not_found.jpg";
 import "./BookDetails.css";
-import book1 from "../../images/book1.png";
+// import book1 from "../../images/book1.png";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 const URL = "http://localhost:8080/books/id";
@@ -39,7 +39,7 @@ const BookDetails = () => {
         <div className='book-details-content grid'>
           <div className='book-details-img'>
             {/* <img src={`../../images/${book?.BookImage}`} alt="cover img" /> */}
-            <img src={book1} alt="cover img" />
+            <img src={book?.BookImage} alt="cover img" />
           </div>
           <div className='book-details-info'>
             <div className='book-details-item title'>

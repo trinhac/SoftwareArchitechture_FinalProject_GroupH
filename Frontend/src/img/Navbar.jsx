@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import "./Navbar.css";
-import logoImg from "../../img/logo.png";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import logoImg from "../../../public/assets/images/logo.png";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -32,7 +32,7 @@ const Navbar = () => {
                 <Link to="about" className='nav-link text-uppercase text-white fs-22 fw-6 ls-1'>About</Link>
               </li>
               <li className='nav-item'>
-                <Link to="login" className='nav-link text-uppercase text-white fs-22 fw-6 ls-1'>Login</Link>
+                <Link to="admin" className='nav-link text-uppercase text-white fs-22 fw-6 ls-1'>Login</Link>
               </li>
             </ul>
           </div>
